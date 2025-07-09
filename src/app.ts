@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import cors from "cors"
 import { router } from "./app/routes";
 import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
+import notFound from "./app/middleware/notFound";
 
 const app = express();
 
@@ -20,5 +21,8 @@ app.get('/', (req:Request, res:Response)=>{
 
 // error middale ware
 app.use(globalErrorHandler);
+
+// middle ware not found route
+app.use(notFound)
 
 export default app;
