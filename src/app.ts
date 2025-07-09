@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from 'express';
 import cors from "cors"
 import { router } from "./app/routes";
+import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 
 const app = express();
 
@@ -16,5 +17,8 @@ app.get('/', (req:Request, res:Response)=>{
     message:"Welcome to Our Tour management Backend"
   })
 })
+
+// error middale ware
+app.use(globalErrorHandler);
 
 export default app;
