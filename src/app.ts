@@ -1,28 +1,26 @@
-import express from "express";
-import { Request, Response } from 'express';
-import cors from "cors"
+
+import cors from "cors";
+import express, { Request, Response } from "express";
 import { router } from "./app/routes";
-import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
-import notFound from "./app/middleware/notFound";
+import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
 app.use(cors())
 
 app.use("/api/v1", router)
 
-app.get('/', (req:Request, res:Response)=>{
-  res.json({
-    status: "Ok",
-    message:"Welcome to Our Tour management Backend"
-  })
+app.get("/", (req: Request, res: Response) => {
+    res.status(200).json({
+        message: "Welcome to Tour Management System Backend"
+    })
 })
 
-// error middale ware
-app.use(globalErrorHandler);
 
-// middle ware not found route
+app.use(globalErrorHandler)
+
 app.use(notFound)
 
-export default app;
+export default app
