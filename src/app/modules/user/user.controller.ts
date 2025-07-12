@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 
@@ -18,6 +17,21 @@ const createUser = catchAsync(async (req: Request, res: Response, next: NextFunc
         data: user,
     })
 })
+const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id;
+
+    const verifiedToken = req.user;
+
+    const payload = req.body;
+    const user = await UserServices.updateUser(userId, payload, verifiedToken)
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.CREATED,
+        message: "User Updated Successfully",
+        data: user,
+    })
+})
 
 const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserServices.getAllUsers();
@@ -31,10 +45,12 @@ const getAllUsers = catchAsync(async (req: Request, res: Response, next: NextFun
     })
 })
 
+// function => try-catch catch => req-res function
 
 export const UserControllers = {
     createUser,
-    getAllUsers
+    getAllUsers,
+    updateUser
 }
 
 // route matching -> controller -> service -> model -> DB
