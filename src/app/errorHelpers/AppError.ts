@@ -1,3 +1,5 @@
+
+
 class AppError extends Error {
     public statusCode: number;
 
@@ -14,4 +16,3 @@ class AppError extends Error {
 }
 
 export default AppError
-
